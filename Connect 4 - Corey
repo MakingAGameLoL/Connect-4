@@ -1,0 +1,104 @@
+int [][] grid = new int[6][7];
+int player = 1;
+int col = 0;
+
+void setup() {
+  size(500,500);
+  for (int i = 0; i < 6; i++) {
+    for (int j = 0; j < 7; j++) {
+      grid[i][j] = 0;
+      fill(0);    
+    }
+  }
+}
+void draw() {
+  background(255);
+  frameRate(100);
+  //draws grid lines
+  for (int i = 0; i < 6; i++) {
+    line(width/7.0+i*(width/7.0),0,width/7.0+i*(width/7.0),height);
+  }
+  //displays the array
+  for (int i = 0; i < 6; i++) {
+    for (int j = 0; j < 7; j++) {
+      //text(grid[i][j],20+20*j,20+i*10);
+      if (grid[i][j] == -1 || grid[i][j] == 1) {
+        if (grid [i][j] == 1) {
+          fill(255,0,0);
+        }
+        else {
+          fill(255,255,0);
+        }
+        ellipse(width/7.0/2.0+width/7.0*j,width/7*1.5+width/7.0*i,
+        width/7.0,width/7.0);
+      }
+    }
+  }
+  //checks mouse coordinates
+  for (int i = 0; i < 7; i++) {
+    if (mouseX > i*(width/7.0) && mouseX < (width/7.0)+i*(width/7.0)) {
+      col = i;
+    }
+  } 
+  //checks for win-condition
+  for (int j = 0; j < 6; j++) {
+    for (int i = 0; i < 4; i++) {
+      if (grid[j][i]+grid[j][i+1]+grid[j][i+2]+grid[j][i+3] >= 4 ||
+          grid[j][i]+grid[j][i+1]+grid[j][i+2]+grid[j][i+3] <= -4) {
+           println("YOU WIN");
+      }
+    }  
+  }
+  for (int j = 0; j < 7; j++) {
+    for (int i = 0; i < 3; i++) {
+      if (grid[i][j]+grid[i+1][j]+grid[i+2][j]+grid[i+3][j] >= 4 ||
+          grid[i][j]+grid[i+1][j]+grid[i+2][j]+grid[i+3][j] <= -4) {
+           println("YOU WIN"); 
+      }
+    }  
+  }
+  for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < 4; i++) {
+      if (grid[5-j][i]+grid[5-j-1][i+1]+grid[5-j-2][i+2]+grid[5-j-3][i+3] >= 4 ||
+          grid[5-j][i]+grid[5-j-1][i+1]+grid[5-j-2][i+2]+grid[5-j-3][i+3] <= -4) {
+           println("YOU WIN");
+      }
+    }
+  }
+  for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < 4; i++) {
+      if (grid[j][i]+grid[j+1][i+1]+grid[j+2][i+2]+grid[j+3][i+3] >= 4 ||
+          grid[j][i]+grid[j+1][i+1]+grid[j+2][i+2]+grid[j+3][i+3] <= -4) {
+           println("YOU WIN");
+      }
+    }
+  }
+}
+
+//updates array with -1 or 1
+void mouseClicked() {
+  if (grid[5][col] == 0) {
+    grid[5][col] = player;
+  }
+  else if (grid[4][col] == 0) {
+    grid[4][col] = player;
+  }
+   else if (grid[3][col] == 0) {
+    grid[3][col] = player;
+  }
+   else if (grid[2][col] == 0) {
+    grid[2][col] = player;
+  }
+   else if (grid[1][col] == 0) {
+    grid[1][col] = player;
+  }
+   else if (grid[0][col] == 0) {
+    grid[0][col] = player;
+  }
+  if (player == 1) {
+    player = -1;
+  }
+  else {
+    player = 1;
+  }
+}
